@@ -1,0 +1,54 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Visual Studio
+.vs/
+
+# Rider
+.idea/
+
+# macOS / Linux
+.DS_Store
+*.swp
+
+# dotenv
+.env
+.env.*
+
+# ASP.NET Core
+wwwroot/lib/
+appsettings.Development.json
+
+# Test results
+[Tt]est[Rr]esult*/
+*.VisualState.xml
+*.ncrunchsolution
+*.ncrunchproject
+
+# Entity Framework
+Migrations/
+
+# Publish outputs
+publish/
+dist/
+out/
+
+# Packages
+*.nupkg
+*.snupkg
+packages/
+*.dll
+*.exe
+*.pdb
+
+# Logs
+*.log
