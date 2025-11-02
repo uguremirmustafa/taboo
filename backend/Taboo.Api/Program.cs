@@ -1,8 +1,9 @@
 using DotNetEnv;
+using Taboo.Application;
 using Taboo.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
 Env.Load("../.env");
 var connectionString =
@@ -13,21 +14,23 @@ var connectionString =
     $"Password={Environment.GetEnvironmentVariable("DB_PASSWORD")};" +
     $"Ssl Mode={Environment.GetEnvironmentVariable("DB_SSLMODE")};" +
     $"Channel Binding={Environment.GetEnvironmentVariable("DB_CHANNELBINDING")};";
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-builder.Services.AddDbContext<TabooDbContext>(options =>
-    options.UseNpgsql(connectionString));
+
+
+
+services.AddApplication();
+services.AddInfrastructure(connectionString);
+
+services.AddControllers();
+services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
-
+app.MapControllers();
 app.Run();
 
