@@ -16,8 +16,7 @@ public class CategoryService(ICategoryRepository repository, IAppContext appCont
     return categories.Select(c => new CategoryDto
     {
       Id = c.Id,
-      Code = c.Code,
-      Name = c.Translations.FirstOrDefault(t => t.Language == lang)?.Name ?? string.Empty
+      Name = c.Name
     });
   }
 }

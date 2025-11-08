@@ -8,9 +8,8 @@ public class TabooDbContext(DbContextOptions<TabooDbContext> options) : DbContex
 
   public DbSet<Category> Categories => Set<Category>();
   public DbSet<Word> Words => Set<Word>();
-  public DbSet<ForbiddenWord> ForbiddenWords => Set<ForbiddenWord>();
-  public DbSet<CategoryTranslation> CategoryTranslations => Set<CategoryTranslation>();
-  public DbSet<WordTranslation> WordTranslations => Set<WordTranslation>();
+  public DbSet<TabooWord> ForbiddenWords => Set<TabooWord>();
+  public DbSet<Translation> Translations => Set<Translation>();
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

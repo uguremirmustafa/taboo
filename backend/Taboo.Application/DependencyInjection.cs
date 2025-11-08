@@ -9,6 +9,7 @@ namespace Taboo.Application
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
       services.AddScoped<ICategoryService, CategoryService>();
+      services.AddScoped<IWordService, WordService>();
       return services;
     }
   }

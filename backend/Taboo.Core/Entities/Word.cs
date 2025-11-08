@@ -6,9 +6,11 @@ public class Word
 
   public int CategoryId { get; set; }
 
+  public string Value { get; set; } = null!;
+
   public Category Category { get; set; } = null!;
 
-  public ICollection<ForbiddenWord> ForbiddenWords { get; set; } = [];
+  public ICollection<TabooWord> TabooWords { get; set; } = [];
 
-  public ICollection<WordTranslation> Translations { get; set; } = [];
+  public ICollection<Translation> Translations { get; set; } = [];
 }

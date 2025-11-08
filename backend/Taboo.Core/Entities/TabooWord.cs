@@ -1,10 +1,10 @@
 namespace Taboo.Core.Entities;
 
-public class ForbiddenWord
+public class TabooWord
 {
   public int Id { get; set; }
   public int WordId { get; set; }
-  public Word Word { get; set; } = null!;
-
   public string Value { get; set; } = null!;
+  public ICollection<Translation> Translations { get; set; } = [];
+
 }

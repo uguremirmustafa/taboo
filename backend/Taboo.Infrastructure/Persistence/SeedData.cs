@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Taboo.Core.Entities;
 using Taboo.Core.Enums;
 
@@ -5,48 +6,48 @@ namespace Taboo.Infrastructure.Persistence;
 
 public static class SeedData
 {
-  public static void SeedCategories(TabooDbContext context)
+  public static async Task SeedCategoriesAsync(TabooDbContext context)
   {
-    if (context.Categories.Any())
+    if (await context.Categories.AnyAsync())
       return; // DB already seeded
 
     var categories = new List<Category>
     {
-      new() {
-        Code = "sports",
-        Translations =
-        [
-          new() { Language = LanguageCode.En, Name = "Sports" },
-          new() { Language = LanguageCode.Tr, Name = "Spor" }
-        ]
-      },
-      new() {
-        Code = "movies",
-        Translations =
+        new Category
         {
-          new() { Language = LanguageCode.En, Name = "Movies" },
-          new() { Language = LanguageCode.Tr, Name = "Filmler" }
-        }
-      },
-      new() {
-        Code = "history",
-        Translations =
+            Name = "Sports",
+            // Translations = new List<Translation>
+            // {
+            //     new Translation
+            //     {
+            //         Language = LanguageCode.Tr,
+            //         Source = "Sports",
+            //         Value = "Spor",
+            //         EntityType = nameof(Category) // safer than string literal
+            //     }
+            // }
+        },
+        new Category
         {
-          new() { Language = LanguageCode.En, Name = "History" },
-          new() { Language = LanguageCode.Tr, Name = "Tarih" }
+            Name = "Movies",
+            // Translations = new List<Translation>
+            // {
+            //     new Translation
+            //     {
+            //         Language = LanguageCode.Tr,
+            //         Source = "Movies",
+            //         Value = "Filmler",
+            //         EntityType = nameof(Category)
+            //     }
+            // }
         }
-      },
-      new() {
-        Code = "music",
-        Translations =
-        {
-          new() { Language = LanguageCode.En, Name = "Music" },
-          new() { Language = LanguageCode.Tr, Name = "Müzik" }
-        }
-      }
     };
 
-    context.Categories.AddRange(categories);
-    context.SaveChanges();
+    // Add categories first
+    await context.Categories.AddRangeAsync(categories);
+
+    // Save changes to generate Ids
+    await context.SaveChangesAsync();
   }
+
 }

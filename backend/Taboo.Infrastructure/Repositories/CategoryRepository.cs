@@ -15,8 +15,15 @@ public class CategoryRepository(TabooDbContext context, IAppContext appContext) 
   {
     return await _context.Categories
             .AsNoTracking()
-            .Include(c => c.Translations)
-            .Where(c => c.Translations.Any(t => t.Language == _app.Language))
             .ToListAsync();
+  }
+
+  public async Task<Category?> GetByIdAsync(int categoryId)
+  {
+    return await _context.Categories
+            .AsNoTracking()
+            .Include(c => c.Translations)
+            .Where(c => c.Id == categoryId)
+            .FirstOrDefaultAsync();
   }
 }
