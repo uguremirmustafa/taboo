@@ -1,5 +1,9 @@
 # Taboo
 
+## Design
+
+We will need a dashboard to manage taboo storage
+
 ## Backend
 
 ```bash

@@ -11,6 +11,8 @@ builder.Configuration.AddEnvironmentVariables();
 
 var services = builder.Services;
 
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
 services.AddHttpClient();
 services.AddApplication();
 services.AddInfrastructure(builder.Configuration);
@@ -18,7 +20,11 @@ services.AddInfrastructure(builder.Configuration);
 services.AddHttpContextAccessor();
 services.AddScoped<IAppContext, Taboo.Api.Services.AppContext>();
 
-services.AddControllers();
+services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+    });
 services.AddOpenApi();
 
 var app = builder.Build();
@@ -31,7 +37,19 @@ using (var scope = app.Services.CreateScope())
 }
 if (!app.Environment.IsDevelopment())
 {
+
     app.UseHttpsRedirection();
+}
+else
+{
+    app.UseCors(policy => policy
+         .WithOrigins("http://localhost:3000", "http://localhost:5173")
+         .AllowAnyMethod()
+         .AllowAnyHeader()
+         .AllowCredentials());
+
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 app.MapControllers();
 app.Run();
